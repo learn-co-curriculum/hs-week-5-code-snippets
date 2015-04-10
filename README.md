@@ -7,6 +7,7 @@ type: code snippets
 
 ## The Code Cherry On Top
 
+### application_controller.rb Code snippet 1
 We just need to make one small change to the Sinatra configurations in our application controller to enable sessions in our application by adding the following lines of code:
 
 ```ruby
@@ -34,3 +35,64 @@ end
 ```
 
 You're ready to session! If you missed class, move on to the Sinatra Sessions Walkthrough.
+
+
+### users.erb - Code snippet 2
+Include the code above the Sign Up form
+
+```html
+ <h3>Sign In</h3>
+  <form action="/sign-in" method="POST">
+    <p>Name: <input type="text" name="name"></p>
+    <p>Email: <input type="text" name="email"></p>
+    <input class="btn btn-primary" type="submit">
+  </form>
+  </br>
+```
+
+### application_controller.rb  - Code snippet 3
+```ruby 
+  post '/sign-in' do
+    @user = User.find_by(:email => params[:email], :name => params[:name])
+    if @user
+      session[:user_id] = @user.id
+    end
+    redirect '/tweet'
+  end
+```
+
+### tweets.erb - Code snippet 4
+```erb
+  <% if session[:user_id] %>
+    <h2>Add a tweet</h2>
+    <form action="/tweet" method="POST">
+    <p><strong>User:</strong> <%= @user.name %> <input type="hidden" name="user_id" value="<%= @user.id %>"></p>
+    <p><strong>Status:</strong> <input type="text" name="status"></p>
+    <input class="btn btn-primary" type="submit">
+    </form>
+  <% end %>
+```
+
+### application_controller.rb - code snippet 5
+```ruby
+  get '/sign-out' do
+    session[:user_id] = nil
+    session[:error] = nil
+    redirect '/'
+  end
+```
+
+### tweets.erb - Code snippet 6
+
+```erb
+  <% if session[:user_id] %>
+    <h2>Add a tweet</h2>
+    <form action="/tweet" method="POST">
+      <p><strong>User:</strong> <%= @user.name %> <input type="hidden" name="user_id" value="<%= @user.id %>"></p>
+      <p><strong>Status:</strong> <input type="text" name="status"></p>
+      <input class="btn btn-primary" type="submit">
+  </form>
+<% end %>
+```
+
+
