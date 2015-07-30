@@ -1,9 +1,4 @@
----
-tags: sessions, kids, ruby, advanced, code snippets
-language: ruby
-level: 2
-type: code snippets
----
+
 
 ## The Code Cherry On Top
 
