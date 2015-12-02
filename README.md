@@ -91,3 +91,5 @@ Include the code above the Sign Up form
 ```
 
 
+
+<a href='https://learn.co/lessons/hs-week-5-code-snippets' data-visibility='hidden'>View this lesson on Learn.co</a>
